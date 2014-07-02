@@ -3,6 +3,8 @@
 
 #define MyAppName "WCAT clan icons"
 #define MyAppVersion "1.0.2"
+#define Ver1 "unstable"
+#define Ver2 "stable"
 #define MyAppPublisher "WCAT"
 #define MyAppURL "http://wcat1.ru"
 
@@ -28,7 +30,7 @@ SolidCompression=yes
 DisableStartupPrompt=yes
 AppendDefaultDirName=no
 WizardSmallImageFile=WCAT1.bmp
-OutputDir=bin\{#MyAppVersion}
+OutputDir=bin\{#Ver1}\{#MyAppVersion}
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
