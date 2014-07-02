@@ -13,7 +13,7 @@
 AppId={{A22658A2-D1ED-4F8B-9580-3504FA52B1C6}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
-;AppVerName={#MyAppName} {#MyAppVersion}
+;AppVerName={#MyAppName}_{#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
@@ -22,12 +22,13 @@ DefaultDirName=C:\Games\World_of_Tanks
 DirExistsWarning=no
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
-OutputBaseFilename=setup-wcaticon102b
+OutputBaseFilename=wcaticon_{#MyAppVersion}
 Compression=lzma2
 SolidCompression=yes
 DisableStartupPrompt=yes
 AppendDefaultDirName=no
-WizardSmallImageFile=C:\Users\Евгений\YandexDisk-malininevgeniy\Иконки\WCAT1.bmp
+WizardSmallImageFile=WCAT1.bmp
+OutputDir=bin\{#MyAppVersion}
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
@@ -52,15 +53,15 @@ Name: custom; Description: Пользовательские компоненты; Flags: iscustom
 
 [Files]
 ;Source: C:\Users\Евгений\YandexDisk-malininevgeniy\Иконки\clear.bat; DestDir: {app}; Tasks: Clear; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: C:\Users\Евгений\YandexDisk-malininevgeniy\Иконки\source\blog\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\nick; Components: blog; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: C:\Users\Евгений\YandexDisk-malininevgeniy\Иконки\source\enemP\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\nick; Components: EnemP; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: C:\Users\Евгений\YandexDisk-malininevgeniy\Иконки\source\friendsP\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\nick; Components: FriendsP; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: C:\Users\Евгений\YandexDisk-malininevgeniy\Иконки\source\xvm\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\nick; Components: XVM; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: C:\Users\Евгений\YandexDisk-malininevgeniy\Иконки\source\wcat\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\clan; Components: WCAT; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: C:\Users\Евгений\YandexDisk-malininevgeniy\Иконки\source\friends\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\clan; Components: Friends; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: C:\Users\Евгений\YandexDisk-malininevgeniy\Иконки\source\top\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\clan; Components: TOP; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: C:\Users\Евгений\YandexDisk-malininevgeniy\Иконки\source\wg\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\clan; Components: WG; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: C:\Users\Евгений\YandexDisk-malininevgeniy\Иконки\source\enem\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\clan; Components: Enem; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: source\blog\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\nick; Components: blog; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: source\enemP\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\nick; Components: EnemP; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: source\friendsP\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\nick; Components: FriendsP; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: source\xvm\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\nick; Components: XVM; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: source\wcat\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\clan; Components: WCAT; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: source\friends\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\clan; Components: Friends; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: source\top\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\clan; Components: TOP; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: source\wg\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\clan; Components: WG; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: source\enem\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\clan; Components: Enem; Flags: ignoreversion recursesubdirs createallsubdirs
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
