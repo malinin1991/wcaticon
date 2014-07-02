@@ -30,7 +30,8 @@ SolidCompression=yes
 DisableStartupPrompt=yes
 AppendDefaultDirName=no
 WizardSmallImageFile=WCAT1.bmp
-OutputDir=bin\{#Ver2}\{#MyAppVersion}
+LicenseFile=LICENSE
+OutputDir=bin\{#Ver1}\{#MyAppVersion}
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
@@ -40,9 +41,7 @@ Name: ukrainian; MessagesFile: compiler:Languages\Ukrainian.isl
 [Components]
 Name: WCAT; Description: Иконки 'Диких котов'; Types: full compact custom; Flags: fixed; Languages: 
 Name: Friends; Description: Друзья клана; Types: full compact
-Name: FriendsP; Description: Друзья клана (отдельные игроки); Types: full compact
 Name: Enem; Description: Враги клана; Types: full compact
-Name: EnemP; Description: Враги клана (отдельный игроки); Types: full compact
 Name: TOP; Description: Топ-кланы; Types: full
 Name: WG; Description: Кланы Wargaming; Types: full
 Name: blog; Description: Известные игроки; Types: full
@@ -56,8 +55,8 @@ Name: custom; Description: Пользовательские компоненты; Flags: iscustom
 [Files]
 ;Source: C:\Users\Евгений\YandexDisk-malininevgeniy\Иконки\clear.bat; DestDir: {app}; Tasks: Clear; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: source\blog\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\nick; Components: blog; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: source\enemP\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\nick; Components: EnemP; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: source\friendsP\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\nick; Components: FriendsP; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: source\enemP\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\nick; Components: Enem; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: source\friendsP\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\nick; Components: Friends; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: source\xvm\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\nick; Components: XVM; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: source\wcat\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\clan; Components: WCAT; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: source\friends\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\clan; Components: Friends; Flags: ignoreversion recursesubdirs createallsubdirs
