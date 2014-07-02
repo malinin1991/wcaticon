@@ -31,7 +31,9 @@ DisableStartupPrompt=yes
 AppendDefaultDirName=no
 WizardSmallImageFile=WCAT1.bmp
 LicenseFile=LICENSE
+InfoAfterFile=releasenotes.txt
 OutputDir=bin\{#Ver1}\{#MyAppVersion}
+
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
@@ -54,19 +56,21 @@ Name: custom; Description: Пользовательские компоненты; Flags: iscustom
 
 [Files]
 ;Source: C:\Users\Евгений\YandexDisk-malininevgeniy\Иконки\clear.bat; DestDir: {app}; Tasks: Clear; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: source\blog\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\nick; Components: blog; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: source\enemP\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\nick; Components: Enem; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: source\friendsP\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\nick; Components: Friends; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: source\xvm\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\nick; Components: XVM; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: source\wcat\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\clan; Components: WCAT; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: source\friends\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\clan; Components: Friends; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: source\top\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\clan; Components: TOP; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: source\wg\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\clan; Components: WG; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: source\enem\*; DestDir: {app}\res_mods\xvm\res\clanicons\RU\clan; Components: Enem; Flags: ignoreversion recursesubdirs createallsubdirs
-
-; NOTE: Don't use "Flags: ignoreversion" on any shared system files
+Source: "source\blog\*"; DestDir: "{app}\res_mods\xvm\res\clanicons\RU\nick"; Flags: ignoreversion recursesubdirs createallsubdirs; Components: blog
+Source: "source\enemP\*"; DestDir: "{app}\res_mods\xvm\res\clanicons\RU\nick"; Flags: ignoreversion recursesubdirs createallsubdirs; Components: Enem
+Source: "source\friendsP\*"; DestDir: "{app}\res_mods\xvm\res\clanicons\RU\nick"; Flags: ignoreversion recursesubdirs createallsubdirs; Components: Friends
+Source: "source\xvm\*"; DestDir: "{app}\res_mods\xvm\res\clanicons\RU\nick"; Flags: ignoreversion recursesubdirs createallsubdirs; Components: XVM
+Source: "source\wcat\*"; DestDir: "{app}\res_mods\xvm\res\clanicons\RU\clan"; Flags: ignoreversion recursesubdirs createallsubdirs; Components: WCAT
+Source: "source\friends\*"; DestDir: "{app}\res_mods\xvm\res\clanicons\RU\clan"; Flags: ignoreversion recursesubdirs createallsubdirs; Components: Friends
+Source: "source\top\*"; DestDir: "{app}\res_mods\xvm\res\clanicons\RU\clan"; Flags: ignoreversion recursesubdirs createallsubdirs; Components: TOP
+Source: "source\wg\*"; DestDir: "{app}\res_mods\xvm\res\clanicons\RU\clan"; Flags: ignoreversion recursesubdirs createallsubdirs; Components: WG
+Source: "source\enem\*"; DestDir: "{app}\res_mods\xvm\res\clanicons\RU\clan"; Flags: ignoreversion recursesubdirs createallsubdirs; Components: Enem
+Source: "D:\git\wcaticon\releasenotes.txt"; DestDir: "{app}"; Flags: ignoreversion
 
 [Tasks]
 ; Name: Clear; Description: Чистая установка (удалить все старые иконки); Flags: unchecked
+
+[Run]
+
 
 [Code]
