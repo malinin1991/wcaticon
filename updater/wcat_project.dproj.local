@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2014.07.05 01:43:03.799,=C:\Users\Евгений\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2014.07.05 01:44:11.462,D:\git\wcaticon\updater\wcat_updater.pas=C:\Users\Евгений\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2014.07.05 01:44:11.462,D:\git\wcaticon\updater\wcat_updater.dfm=C:\Users\Евгений\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2014.07.05 01:44:43.333,D:\git\wcaticon\updater\wcat_project.dproj=C:\Users\Евгений\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
