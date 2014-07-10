@@ -32,7 +32,7 @@ object Form1: TForm1
   object Label2: TLabel
     Left = 0
     Top = 37
-    Width = 475
+    Width = 24
     Height = 13
     Caption = '        '
   end
@@ -58,6 +58,7 @@ object Form1: TForm1
     Height = 33
     Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080
     TabOrder = 2
+    OnClick = Button2Click
   end
   object Button3: TButton
     Left = 246

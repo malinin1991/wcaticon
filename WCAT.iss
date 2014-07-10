@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "WCAT clan icons"
-#define MyAppVersion "1.0.2"
+#define MyAppVersion "1.0.3"
 #define Ver1 "unstable"
 #define Ver2 "stable"
 #define MyAppPublisher "WCAT"

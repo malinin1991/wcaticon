@@ -32,7 +32,7 @@ AppendDefaultDirName=no
 WizardSmallImageFile=WCAT1.bmp
 LicenseFile=LICENSE
 InfoAfterFile=releasenotes.txt
-OutputDir=bin\{#Ver1}\{#MyAppVersion}
+OutputDir=bin\{#Ver2}\{#MyAppVersion}
 
 
 [Languages]
@@ -71,6 +71,6 @@ Source: "D:\git\wcaticon\releasenotes.txt"; DestDir: "{app}"; Flags: ignoreversi
 ; Name: Clear; Description: Чистая установка (удалить все старые иконки); Flags: unchecked
 
 [Run]
-;Filename: "releasenotes.txt"; WorkingDir: "{app}"; Flags: shellexec
+
 
 [Code]
