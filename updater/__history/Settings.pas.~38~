@@ -1,0 +1,136 @@
+unit Settings;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, FileCtrl, IniFiles,
+  wcat_updater, Vcl.ExtCtrls;
+
+type
+  TForm3 = class(TForm)
+    GroupBox1: TGroupBox;
+    CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
+    CheckBox3: TCheckBox;
+    CheckBox4: TCheckBox;
+    CheckBox5: TCheckBox;
+    CheckBox6: TCheckBox;
+    CheckBox7: TCheckBox;
+    GroupBox2: TGroupBox;
+    CheckBox8: TCheckBox;
+    CheckBox9: TCheckBox;
+    Button1: TButton;
+    Button2: TButton;
+    GroupBox3: TGroupBox;
+    CheckBox10: TCheckBox;
+    GroupBox4: TGroupBox;
+    Edit1: TEdit;
+    Button3: TButton;
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCreate(Sender: TObject);
+
+  private
+    { Private declarations }
+  public
+
+  end;
+
+var
+  Form3: TForm3;
+  chosenDirectory : string;
+
+
+implementation
+
+{$R *.dfm}
+
+procedure LoadSettings;
+var
+  F: TIniFile;
+  names: TStringList;
+begin
+  F := TIniFile.Create(ExtractFilePath(ParamStr(0)) + 'wcat_icon.ini');
+  Form3.Edit1.Text := F.ReadString('FOLDERS', 'GameFolder', '');
+  Form3.CheckBox1.Checked := F.ReadBool('COMPONENTS', 'wcat', false);
+  Form3.CheckBox2.Checked := F.ReadBool('COMPONENTS', 'friends', false);
+  Form3.CheckBox3.Checked := F.ReadBool('COMPONENTS', 'enem', false);
+  Form3.CheckBox4.Checked := F.ReadBool('COMPONENTS', 'blog', false);
+  Form3.CheckBox5.Checked := F.ReadBool('COMPONENTS', 'top', false);
+  Form3.CheckBox6.Checked := F.ReadBool('COMPONENTS', 'wg', false);
+  Form3.CheckBox7.Checked := F.ReadBool('COMPONENTS', 'xvm', false);
+  Form3.CheckBox8.Checked := F.ReadBool('UPDATE', 'iupd', false);
+  Form3.CheckBox9.Checked := F.ReadBool('UPDATE', 'upd', false);
+  Form3.CheckBox10.Checked := F.ReadBool('AUTORUN', 'autorun', false);
+  F.Destroy;
+end;
+
+procedure SaveSettings;
+var
+  F: TIniFile;
+  i: integer;
+begin
+  F := TIniFile.Create(ExtractFilePath(ParamStr(0)) + 'wcat_icon.ini');
+  F.WriteString('FOLDERS', 'GameFolder', Form3.Edit1.Text);
+  F.WriteBool('COMPONENTS', 'wcat', Form3.CheckBox1.Checked);
+  F.WriteBool('COMPONENTS', 'friends', Form3.CheckBox2.Checked);
+  F.WriteBool('COMPONENTS', 'enem', Form3.CheckBox3.Checked);
+  F.WriteBool('COMPONENTS', 'blog', Form3.CheckBox4.Checked);
+  F.WriteBool('COMPONENTS', 'top', Form3.CheckBox5.Checked);
+  F.WriteBool('COMPONENTS', 'wg', Form3.CheckBox6.Checked);
+  F.WriteBool('COMPONENTS', 'xvm', Form3.CheckBox7.Checked);
+  F.WriteBool('UPDATE', 'iupd', Form3.CheckBox8.Checked);
+  F.WriteBool('UPDATE', 'upd', Form3.CheckBox9.Checked);
+  F.WriteBool('AUTORUN', 'autorun', Form3.CheckBox10.Checked);
+  F.Free;
+  firstrun:=false;
+end;
+
+
+procedure setgamefolder;
+var
+  usingDirectory  : string;
+begin
+  usingDirectory:=Form3.Edit1.Text;
+  SelectDirectory('Выберите папку с игрой World of Tanks', '', chosenDirectory);
+  if chosenDirectory='' then Form3.Edit1.Text:=usingDirectory
+    else Form3.Edit1.Text:=chosenDirectory;
+end;
+
+procedure TForm3.Button1Click(Sender: TObject);
+begin
+if Form3.Edit1.Text='' then
+  begin
+  showmessage('Необходимо указать путь до папки с игрой!');
+  setgamefolder();
+  end;
+SaveSettings();
+
+close();
+end;
+
+procedure TForm3.Button2Click(Sender: TObject);
+begin
+LoadSettings();
+close();
+end;
+
+procedure TForm3.Button3Click(Sender: TObject);
+begin
+setgamefolder();
+end;
+
+procedure TForm3.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+if not firstrun then Form1.visible:=true;
+end;
+
+procedure TForm3.FormCreate(Sender: TObject);
+begin
+LoadSettings();
+end;
+
+end.

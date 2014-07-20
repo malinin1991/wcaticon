@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls, Vcl.ComCtrls, Settings;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls, Vcl.ComCtrls, about, IniFiles,
+  Vcl.ExtCtrls;
 
 type
   TForm1 = class(TForm)
@@ -21,7 +22,12 @@ type
     Button3: TButton;
     procedure N2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure N4Click(Sender: TObject);
+    procedure N3Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -31,14 +37,47 @@ type
 
 var
   Form1: TForm1;
+  firstrun:bool;
 
 implementation
 
 {$R *.dfm}
 
+uses Settings;
+
+procedure LoadSettings;
+var
+  F: TIniFile;
+  names: TStringList;
+begin
+  F := TIniFile.Create(ExtractFilePath(ParamStr(0)) + 'wcat_icon.ini');
+  Form3.Edit1.Text := F.ReadString('FOLDERS', 'GameFolder', '');
+
+  Form3.CheckBox1.Checked := F.ReadBool('COMPONENTS', 'wcat', false);
+  Form3.CheckBox2.Checked := F.ReadBool('COMPONENTS', 'friends', false);
+  Form3.CheckBox3.Checked := F.ReadBool('COMPONENTS', 'enem', false);
+  Form3.CheckBox4.Checked := F.ReadBool('COMPONENTS', 'blog', false);
+  Form3.CheckBox5.Checked := F.ReadBool('COMPONENTS', 'top', false);
+  Form3.CheckBox6.Checked := F.ReadBool('COMPONENTS', 'wg', false);
+  Form3.CheckBox7.Checked := F.ReadBool('COMPONENTS', 'xvm', false);
+
+  Form3.CheckBox8.Checked := F.ReadBool('UPDATE', 'iupd', false);
+  Form3.CheckBox9.Checked := F.ReadBool('UPDATE', 'upd', false);
+
+  Form3.CheckBox10.Checked := F.ReadBool('AUTORUN', 'autorun', false);
+  F.Destroy;
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+LoadSettings;
+showmessage('Фича в разработке!');
+end;
+
 procedure TForm1.Button2Click(Sender: TObject);
 begin
-Form2.Show(); //или Form2.ShowModal();
+Form3.Show;
+Form1.Visible:=false;
 end;
 
 procedure TForm1.Button3Click(Sender: TObject);
@@ -46,9 +85,34 @@ begin
 close();
 end;
 
+
+
+
+
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+if not fileexists('wcat_icon.ini') then firstrun:=true else  firstrun:=false;
+end;
+
+procedure TForm1.FormActivate(Sender: TObject);
+begin
+if firstrun then Form3.ShowModal();
+end;
+
 procedure TForm1.N2Click(Sender: TObject);
 begin
 close();
+end;
+
+procedure TForm1.N3Click(Sender: TObject);
+begin
+Form1.Button1.Click;
+end;
+
+procedure TForm1.N4Click(Sender: TObject);
+begin
+form2.Show;
 end;
 
 end.

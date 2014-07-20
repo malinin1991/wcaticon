@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.333,C:\Users\Евгений\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\git\wcaticon\updater\wcat_project.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.089,=D:\git\wcaticon\updater\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.462,C:\Users\Евгений\Documents\Embarcadero\Studio\Projects\Unit1.dfm=D:\git\wcaticon\updater\wcat_updater.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.195,D:\git\wcaticon\updater\Unit2.dfm=D:\git\wcaticon\updater\about.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.353,=D:\git\wcaticon\updater\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.477,D:\git\wcaticon\updater\Unit1.pas=D:\git\wcaticon\updater\ini.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.391,D:\git\wcaticon\updater\wcat_project.dproj=D:\git\wcaticon\updater\wcat_icon.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.969,D:\git\wcaticon\updater\Unit1.pas=D:\git\wcaticon\updater\tlXMLClass.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.839,=D:\git\wcaticon\updater\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.409,D:\git\wcaticon\updater\ini.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.837,D:\git\wcaticon\updater\tlXMLClass.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.462,C:\Users\Евгений\Documents\Embarcadero\Studio\Projects\Unit1.pas=D:\git\wcaticon\updater\wcat_updater.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.660,=D:\git\wcaticon\updater\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.195,D:\git\wcaticon\updater\Unit2.pas=D:\git\wcaticon\updater\about.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.799,=C:\Users\Евгений\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.115,D:\git\wcaticon\updater\Unit3.dfm=D:\git\wcaticon\updater\Settings.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.221,=D:\git\wcaticon\updater\res\WCAT1.png</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.081,=D:\git\wcaticon\updater\Unit3.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.115,D:\git\wcaticon\updater\Unit3.pas=D:\git\wcaticon\updater\Settings.pas</Transaction>
+  </Transactions>
+</BorlandProject>

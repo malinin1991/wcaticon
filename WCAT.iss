@@ -32,7 +32,7 @@ AppendDefaultDirName=no
 WizardSmallImageFile=WCAT1.bmp
 LicenseFile=LICENSE
 InfoAfterFile=releasenotes.txt
-OutputDir=bin\{#Ver1}\{#MyAppVersion}
+OutputDir=bin\{#Ver2}\{#MyAppVersion}
 
 
 [Languages]
@@ -55,7 +55,7 @@ Name: compact; Description: Основные компоненты
 Name: custom; Description: Пользовательские компоненты; Flags: iscustom
 
 [Files]
-;Source: C:\Users\Евгений\YandexDisk-malininevgeniy\Иконки\clear.bat; DestDir: {app}; Tasks: Clear; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "clear.bat"; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "source\blog\*"; DestDir: "{app}\res_mods\xvm\res\clanicons\RU\nick"; Flags: ignoreversion recursesubdirs createallsubdirs; Components: blog
 Source: "source\enemP\*"; DestDir: "{app}\res_mods\xvm\res\clanicons\RU\nick"; Flags: ignoreversion recursesubdirs createallsubdirs; Components: Enem
 Source: "source\friendsP\*"; DestDir: "{app}\res_mods\xvm\res\clanicons\RU\nick"; Flags: ignoreversion recursesubdirs createallsubdirs; Components: Friends
@@ -71,6 +71,6 @@ Source: "D:\git\wcaticon\releasenotes.txt"; DestDir: "{app}"; Flags: ignoreversi
 ; Name: Clear; Description: Чистая установка (удалить все старые иконки); Flags: unchecked
 
 [Run]
-
+Filename: {app}\clear.bat; StatusMsg: Очистка друзей...; Flags: waituntilterminated;
 
 [Code]

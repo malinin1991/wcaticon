@@ -1,0 +1,298 @@
+unit tlXMLClass;
+
+interface
+
+uses
+  Classes, XMLIntf,
+  // это важно!!! модуль позволяет работать со свойствами объекта
+  TypInfo;
+
+type
+  TXMLClass = class(TPersistent)
+  private
+    // тут у нас будет имя файла с настройками
+    FXMLFilePath: string;
+    // а тут - название приложения для идентификации
+    FApplicationName: string;
+    // название корневой ветки файла
+    FRootNodeName: string;
+    // версия
+    FVersion: byte;
+  protected
+    procedure SaveClass(oObject: TObject; Node: IXMLNode);
+    procedure LoadClass(oObject: TObject; Node: IXMLNode);
+  public
+    constructor Create(const AppName, XMLFilePath: string; RootNodeName: string = 'config');
+
+    procedure Initialize; abstract;
+
+    // загрузка значений из файла
+    procedure Load;
+    // и их сохранение
+    procedure Save;
+
+    // виртуальный метод, его мы будем писать в наследнике
+    procedure LoadDefaults; virtual;
+
+    property ApplicationName: string read FApplicationName write FApplicationName;
+    property RootNodeName: string read FRootNodeName;
+    property Version: byte read FVersion write FVersion default 1;
+  end;
+
+implementation
+
+uses
+  // насчет XMLDoc и XMLIntf - эти два модуля появились в Delphi не так давно,
+  // насколько я помню. если у вас их нет, то придется это дело реализовывать как-то по-другому.
+  XMLDoc, SysUtils, Windows,
+  resConfig;
+
+{ TXMLConfig }
+
+{$REGION 'Initialization'}
+constructor TXMLClass.Create(const AppName, XMLFilePath: string; RootNodeName: string = 'config');
+begin
+  Initialize;
+
+  FApplicationName := AppName;
+  FXMLFilePath := XMLFilePath;
+  FRootNodeName := RootNodeName;
+
+  // задаем настройки по-умолчанию
+  LoadDefaults;
+end;
+
+procedure TXMLClass.LoadDefaults;
+begin
+
+end;
+{$ENDREGION}
+
+{$REGION 'Loading'}
+procedure TXMLClass.LoadClass(oObject: TObject; Node: IXMLNode);
+
+  // тут мы пробуем найти свойство и задать его значение
+  procedure GetProperty(PropInfo: PPropInfo);
+  var
+    sValue: string;
+    TempNode: IXMLNode;
+    LObject: TObject;
+  begin
+    // пробуем найти ветку с названием свойства
+    TempNode := Node.ChildNodes.FindNode(PropInfo^.Name);
+    // если не нашли, то выходим из функции. значение свойства останется значением по-умолчанию
+    if TempNode = nil then
+      exit;
+
+    // если свойство не является объектом, то получаем значение из ветки
+    if PropInfo^.PropType^.Kind <> tkClass then
+      sValue := TempNode.Text;
+
+    // анализируем тип свойства и задаем ему значение в соответствии с ним
+    case PropInfo^.PropType^.Kind of
+      tkEnumeration:
+        if GetTypeData(PropInfo^.PropType^)^.BaseType^ = TypeInfo(Boolean)
+          then SetPropValue(oObject, PropInfo, Boolean(StrToBool(sValue)))
+          else SetPropValue(oObject, PropInfo, StrToInt(sValue));
+      tkInteger, tkChar, tkWChar, tkSet:
+        SetPropValue(oObject, PropInfo, StrToInt(sValue));
+      tkFloat:
+        SetPropValue(oObject, PropInfo, StrToFloat(sValue));
+      tkString, tkLString, tkWString:
+        SetPropValue(oObject, PropInfo, sValue);
+      // а вот если свойство - объект, то рекурсивно выполняем процедуру
+      // LoadClass, но уже для найденной ветки
+      tkClass:
+        begin
+          LObject := GetObjectProp(oObject, PropInfo);
+          if LObject <> nil then
+            LoadClass(LObject, TempNode);
+        end;
+    end;
+  end;
+
+var
+  i, iCount: integer;
+  PropInfo: PPropInfo;
+  PropList: PPropList;
+begin
+  // получаем количество публичных свойств объекта
+  iCount := GetTypeData(oObject.ClassInfo)^.PropCount;
+
+  if iCount > 0 then
+  begin
+    // запрашиваем кусочек памяти для хранения
+    // списка свойств
+    GetMem(PropList, iCount * SizeOf(Pointer));
+
+    // и получаем их в PropList
+    GetPropInfos(oObject.ClassInfo, PropList);
+    try
+      // пробегаемся по списку свойств
+      for i := 0 to iCount - 1 do
+      begin
+        PropInfo := PropList^[i];
+        if PropInfo = nil then
+          break;
+
+        // и для каждого свойства выполняем GetProperty (см.выше)
+        GetProperty(PropInfo);
+      end;
+    finally
+      // и в самом конце освобождаем занятую списком память
+      FreeMem(PropList, iCount * SizeOf(Pointer));
+    end;
+  end;
+end;
+
+procedure TXMLClass.Load;
+// процедура чтения из файла
+var
+  XMLRoot: IXMLNode;
+  XML: IXMLDocument;
+begin
+  LoadDefaults;
+  if not FileExists(FXMLFilePath) then
+    exit;
+
+  try
+    // сам xml-Файл с настройками
+    XML := LoadXMLDocument(FXMLFilePath);
+    // корневая ветка xml-документа
+    XMLRoot := XML.DocumentElement;
+
+    // проверка на то, наш ли этот файл
+    if (XMLRoot.NodeName <> FRootNodeName) or
+       (XMLRoot.Attributes[rsApplication] <> FApplicationName) then
+      exit;
+
+    FVersion := XMLRoot.Attributes[rsFormat];
+
+    // пошли загружать
+    LoadClass(Self, XMLRoot);
+  except
+    // возникло исключение? загружаем значения по-умолчанию
+    LoadDefaults;
+  end;
+end;
+{$ENDREGION}
+
+{$REGION 'Saving'}
+procedure TXMLClass.SaveClass(oObject: TObject; Node: IXMLNode);
+// здесь мы сохраняем значения и процедура эта очень
+// сильно похожа на процедуру загрузки, поэтому комментировать
+// я здесь буду только то, чего нет в той процедуре
+
+  procedure WriteProperty(PropInfo: PPropInfo);
+  var
+    sValue: string;
+    LObject: TObject;
+    TempNode: IXMLNode;
+  begin
+    case PropInfo^.PropType^.Kind of
+      tkEnumeration:
+        if GetTypeData(PropInfo^.PropType^)^.BaseType^ = TypeInfo(Boolean)
+          then sValue := BoolToStr(Boolean(GetOrdProp(oObject, PropInfo)), true)
+          else sValue := IntToStr(GetOrdProp(oObject, PropInfo));
+      tkInteger, tkChar, tkWChar, tkSet:
+        sValue := IntToStr(GetOrdProp(oObject, PropInfo));
+      tkFloat:
+        sValue := FloatToStr(GetFloatProp(oObject, PropInfo));
+      tkString, tkLString, tkWString:
+
+        sValue := GetWideStrProp(oObject, PropInfo);
+      tkClass:
+        if Assigned(PropInfo^.GetProc) and Assigned(PropInfo^.SetProc) then
+        begin
+          LObject := GetObjectProp(oObject, PropInfo);
+          if LObject <> nil then
+          begin
+            TempNode := Node.AddChild(PropInfo^.Name);
+
+            SaveClass(LObject, TempNode);
+          end;
+        end;
+    end;
+
+    // тут мы создаем новую ветку в корне документа
+    // и записываем в него значение свойства
+    if PropInfo^.PropType^.Kind <> tkClass then
+      with Node.AddChild(PropInfo^.Name) do
+        Text := sValue;
+  end;
+
+var
+  PropInfo: PPropInfo;
+  PropList: PPropList;
+  i, iCount: integer;
+begin
+  iCount := GetTypeData(oObject.ClassInfo)^.PropCount;
+
+  if iCount > 0 then
+  begin
+    GetMem(PropList, iCount * SizeOf(Pointer));
+    try
+      GetPropInfos(oObject.ClassInfo, PropList);
+
+      for i := 0 to iCount - 1 do
+      begin
+        PropInfo := PropList^[i];
+        if PropInfo = nil then
+          Break;
+
+        WriteProperty(PropInfo);
+      end;
+    finally
+      FreeMem(PropList, iCount * SizeOf(Pointer));
+    end;
+  end;
+end;
+
+procedure TXMLClass.Save;
+var
+  FRootNode: IXMLNode;
+  FBackFileName: string;
+  XML: IXMLDocument;
+begin
+  // куда уж без бекапа. на всякий случай не помешает
+  FBackFileName := ChangeFileExt(FXMLFilePath, '.bak');
+  try
+    // оригинал удаляем
+    if FileExists(FXMLFilePath) then
+      DeleteFile(PChar(FXMLFilePath));
+
+    try
+      // создаем новый XML-документ
+      XML := NewXMLDocument;
+
+      // задаем ему кодировку и версию
+      with XML do
+      begin
+        Encoding := 'UTF-8';
+        Version := '1.0';
+      end;
+
+      // добавляем корневую ветку FRootNodeName
+      FRootNode := XML.AddChild(FRootNodeName);
+      FRootNode.Attributes[rsApplication] := FApplicationName;
+      FRootNode.Attributes[rsFormat] := FVersion;
+
+      SaveClass(Self, FRootNode);
+
+      // сохраняем документ
+      XML.SaveToFile(FXMLFilePath);
+    except
+      // а вот если произошла ошибка, то пытаемся
+      // восстановить файл из созданной резервной копии
+      if FileExists(FBackFileName) then
+        RenameFile(FBackFileName, FXMLFilePath);
+    end;
+  finally
+    // и в самом конце удаляем резервную копию
+    if FileExists(FBackFileName) then
+      DeleteFile(PChar(FBackFileName));
+  end;
+end;
+{$ENDREGION}
+
+end.
