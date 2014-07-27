@@ -32,7 +32,7 @@ AppendDefaultDirName=no
 WizardSmallImageFile=WCAT1.bmp
 LicenseFile=LICENSE
 InfoAfterFile=releasenotes.txt
-OutputDir=bin\{#Ver1}\{#MyAppVersion}
+OutputDir=bin\{#Ver2}\{#MyAppVersion}
 
 
 [Languages]

@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "WCAT clan icons"
-#define MyAppVersion "1.0.3"
+#define MyAppVersion "1.0.4"
 #define Ver1 "unstable"
 #define Ver2 "stable"
 #define MyAppPublisher "WCAT"
@@ -32,7 +32,7 @@ AppendDefaultDirName=no
 WizardSmallImageFile=WCAT1.bmp
 LicenseFile=LICENSE
 InfoAfterFile=releasenotes.txt
-OutputDir=bin\{#Ver2}\{#MyAppVersion}
+OutputDir=bin\{#Ver1}\{#MyAppVersion}
 
 
 [Languages]
